@@ -85,10 +85,15 @@ client.on("messageCreate",(message)=>{
                 return res.json();
             })
             .then((data)=>{
-                const joke = new MessageEmbed()
+                if(data.type === "single"){
+                    message.reply(`${data.joke}`);
+                }
+                else{
+                    const joke = new MessageEmbed()
                 .setTitle("Jokes for people going to HELL!")
                 .addFields({name:data.setup,value:`${data.delivery}`});
                 message.channel.send({embeds:[joke]})
+                }
             })
     }
     else if(message.content === "#help"){
