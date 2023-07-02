@@ -13,7 +13,6 @@ const client = new discord.Client({
 client.on("ready",()=>{
     console.log(`Logged in with ${client.user.tag}`)
 })
-
 client.on("messageCreate",(message)=>{
     if(message.content === "#rand"){
         const rand = Math.floor(Math.random()*100)+1
@@ -64,7 +63,7 @@ client.on("messageCreate",(message)=>{
     }
     else if(message.content === "#aimg"){
         const image = async ()=>{
-            const res = await fetch('https://api.waifu.im/sfw/waifu/');
+            const res = await fetch('https://api.waifu.im/search');
             const data = await res.json();
             //  console.log(data.images[0].url);
 
@@ -85,10 +84,16 @@ client.on("messageCreate",(message)=>{
                 return res.json();
             })
             .then((data)=>{
-                const joke = new MessageEmbed()
+                if(data.type === "single"){
+                    message.reply(`${data.joke}`);
+                }
+                else{
+                    const joke = new MessageEmbed()
                 .setTitle("Jokes for people going to HELL!")
                 .addFields({name:data.setup,value:`${data.delivery}`});
                 message.channel.send({embeds:[joke]})
+                }
+                
             })
     }
     else if(message.content === "#help"){
