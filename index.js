@@ -92,6 +92,7 @@ client.on("messageCreate",(message)=>{
                 .setTitle("Jokes for people going to HELL!")
                 .addFields({name:data.setup,value:`${data.delivery}`});
                 message.channel.send({embeds:[joke]})
+                }
             })
     }
     else if(message.content === "#help"){
